@@ -1,29 +1,45 @@
 function genererContenu() {
-  // Obtenir l'élément avec l'id démo et lui ajouter des éléments h2 et p
-  
-  let demo = document.getElementById("demo"); //demo c'est la partie du milieu, on prend le texte du milieu et on enléve le texte
-  demo.innerHTML=""; //innerHTML ca veut dire qu'on remplace le texte par "". 
+    // Boucle pour générer les éléments
+    for (let i = 0; i < 5; i++) {
+        
+        // 1. Création de l'élément h2
+        let monH2 = document.createElement("h2");
+        monH2.textContent = "Titre par défaut " + i;
 
+        // Ajout de l'attribut "monId"
+        monH2.setAttribute("monId", "Id" + i);
 
-  let qty = document.getElementById("qty").value; //Tu cherche le id qty dna ce cas c'est le nombre
-  let titre = document.getElementById("titre").value; //tu crée la valeur titre pour chercher l'id de titre dans ce cas c'est titre.
-  let contenu = document.getElementById("contenu").value; //tu crée le let contenu et tu cherche l'id de "contenu"
+        // 2. Création de l'élément <aside>
+        let monAside = document.createElement("aside");
+        monAside.textContent = "Plus de détails à propos de: " + i;
 
-  for (let index = 0; index < qty; index++) {
-    let h = document.createElement("h2");
-    h.textContent = titre + " " + index;
-    demo.appendChild(h);
+        // 3. Gestionnaire d'événement mousedown sur le h2
+        monH2.addEventListener("mousedown", function (event) {
+            console.log(event);
+            console.log(event.target);
+            let idAttribut = event.target.getAttribute("monId");
+            console.log(idAttribut);
 
-    let p = document.createElement("p");
-    p.textContent = contenu + " " + index;
-    demo.appendChild(p);  
-  }
+            if (event.target.style.backgroundColor === "gray") {
+                event.target.style.backgroundColor = "white";
+            } else {
+                event.target.style.backgroundColor = "gray";
+            }
+        });
 
+        // 4. Gestionnaires mouseenter et mouseleave sur le h2 pour le <aside>
+        monH2.addEventListener("mouseenter", function (event) {
+            monAside.classList.add("show");
+        });
 
+        monH2.addEventListener("mouseleave", function (event) {
+            monAside.classList.remove("show");
+        });
 
-
-
-
+        // 5. Ajout des éléments dans le document (le h2, puis l'aside juste après)
+        document.body.appendChild(monH2);
+        document.body.appendChild(monAside);
+    }
 }
   
 function changerStyle() {
